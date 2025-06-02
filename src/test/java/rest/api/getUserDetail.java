@@ -3,19 +3,19 @@ package rest.api;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class getUserDetail {
 
     @Test
-    public void simple_test_case(){
+    public void get_user_detail(){
         given().
                 baseUri("http://localhost:3000/localpras").
                 when().
                 get("/user/1").
                 then().
                 statusCode(200).
-                body("data.first_name", is(equalTo("Pras")));
+                body(matchesJsonSchemaInClasspath("getUserDetail.schema.json"));
+
     }
 }
