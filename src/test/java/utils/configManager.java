@@ -6,18 +6,24 @@ import java.util.Properties;
 
 public class configManager {
 
-    private static Properties props = new Properties();
+    private static Properties properties = new Properties();
 
     static {
         try {
-            FileInputStream fis = new FileInputStream("src/test/resources/config/config.properties");
-            props.load(fis);
+            FileInputStream input = new FileInputStream("src/test/resources/env/config.properties");
+            properties = new Properties();
+            properties.load(input);
+            input.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to load config.properties: " + e.getMessage());
         }
     }
 
     public static String get(String key) {
-        return props.getProperty(key);
+        String value = properties.getProperty(key);
+        if (value == null) {
+            throw new RuntimeException("Key not found in config: " + key);
+        }
+        return value;
     }
 }

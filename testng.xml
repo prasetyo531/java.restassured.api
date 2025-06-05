@@ -2,7 +2,7 @@
 <suite name="API Test Suite" verbose="1">
     <test name="User  API Tests">
         <classes>
-            <class name="rest.test.getUserDetail"/>
+            <class name="rest.test.createToken"/>
             <!-- Add more test classes here as needed -->
         </classes>
     </test>
